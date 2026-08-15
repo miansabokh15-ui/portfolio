@@ -183,7 +183,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
       <div class="reveal d2 flex justify-center md:justify-end">
         <div class="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
           <div class="pf w-full h-full rounded-3xl">
-            <img src="img for portfolio2.png" alt="Mian Sabokh — Computer Science Student & Developer" loading="eager">
+            <img src="mainimage2.png" alt="Mian Sabokh — Computer Science Student & Developer" loading="eager">
           </div>
           <div class="absolute -bottom-4 -left-4 bg-accent text-white font-display font-bold text-sm px-4 py-2.5 rounded-2xl shadow-lg">Open to projects</div>
         </div>
@@ -306,7 +306,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 
       <div class="reveal order-2 md:order-1">
         <div class="pf w-full aspect-square max-w-sm mx-auto rounded-3xl">
-          <img src="img for portfolio2.png" alt="Mian Sabokh" loading="lazy">
+          <img src="sidepose.png" alt="Mian Sabokh" loading="lazy">
         </div>
       </div>
 
@@ -525,37 +525,312 @@ Database</h3>
         </div>
 
         <div class="reveal d2">
-          <form action="https://api.web3forms.com/submit" method="POST" novalidate>
+          <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
   <input type="hidden" name="access_key" value="faff2234-3b5c-4dec-93ae-95c4c4e5454f">
+  <input type="hidden" name="subject" value="New Portfolio Contact Message">
 
   <div class="flex flex-col gap-4">
+
     <div class="grid sm:grid-cols-2 gap-4">
+
       <div>
-        <label for="fname" class="block text-xs font-medium text-zinc-400 mb-1.5">Name <span aria-hidden="true">*</span></label>
-        <input type="text" id="fname" name="name" placeholder="Jane Smith" required autocomplete="name"
-          class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors">
+        <label for="fname" class="block text-xs font-medium text-zinc-400 mb-1.5">
+          Name <span aria-hidden="true">*</span>
+        </label>
+
+        <input
+          type="text"
+          id="fname"
+          name="name"
+          placeholder="Jane Smith"
+          required
+          minlength="2"
+          maxlength="50"
+          autocomplete="name"
+          class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors"
+        >
+
+        <p id="nameError" class="hidden text-xs text-red-400 mt-1.5"></p>
       </div>
+
       <div>
-        <label for="femail" class="block text-xs font-medium text-zinc-400 mb-1.5">Email <span aria-hidden="true">*</span></label>
-        <input type="email" id="femail" name="email" placeholder="jane@company.com" required autocomplete="email"
-          class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors">
+        <label for="femail" class="block text-xs font-medium text-zinc-400 mb-1.5">
+          Email <span aria-hidden="true">*</span>
+        </label>
+
+        <input
+          type="email"
+          id="femail"
+          name="email"
+          placeholder="jane@company.com"
+          required
+          maxlength="100"
+          autocomplete="email"
+          class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors"
+        >
+
+        <p id="emailError" class="hidden text-xs text-red-400 mt-1.5"></p>
       </div>
+
     </div>
+
     <div>
-      <label for="fsubject" class="block text-xs font-medium text-zinc-400 mb-1.5">Subject</label>
-      <input type="text" id="fsubject" name="subject" placeholder="Project inquiry"
-        class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors">
+      <label for="fsubject" class="block text-xs font-medium text-zinc-400 mb-1.5">
+        Subject
+      </label>
+
+      <input
+        type="text"
+        id="fsubject"
+        name="subject"
+        placeholder="Project inquiry"
+        maxlength="100"
+        class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors"
+      >
+
+      <p id="subjectError" class="hidden text-xs text-red-400 mt-1.5"></p>
     </div>
+
     <div>
-      <label for="fmessage" class="block text-xs font-medium text-zinc-400 mb-1.5">Message <span aria-hidden="true">*</span></label>
-      <textarea id="fmessage" name="message" rows="4" placeholder="Tell me about your project..." required
-        class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors resize-none"></textarea>
+      <div class="flex items-center justify-between mb-1.5">
+        <label for="fmessage" class="block text-xs font-medium text-zinc-400">
+          Message <span aria-hidden="true">*</span>
+        </label>
+
+        <span id="wordCounter" class="text-xs text-zinc-500">
+          0 / 500 words
+        </span>
+      </div>
+
+      <textarea
+        id="fmessage"
+        name="message"
+        rows="5"
+        placeholder="Tell me about your project..."
+        required
+        class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors resize-none"
+      ></textarea>
+
+      <p id="messageError" class="hidden text-xs text-red-400 mt-1.5"></p>
     </div>
-    <button type="submit" class="shimmer w-full bg-accent text-white font-display font-bold text-sm py-3.5 rounded-xl hover:bg-accent-light transition-colors">
+
+    <button
+      id="submitBtn"
+      type="submit"
+      class="shimmer w-full bg-accent text-white font-display font-bold text-sm py-3.5 rounded-xl hover:bg-accent-light transition-colors"
+    >
       Send message →
     </button>
+
+    <p id="formSuccess" class="hidden text-sm text-green-400 text-center">
+      Your message has been sent successfully.
+    </p>
+
+    <p id="formError" class="hidden text-sm text-red-400 text-center">
+      Please correct the errors above and try again.
+    </p>
+
   </div>
 </form>
+
+<script>
+const contactForm = document.getElementById("contactForm");
+const nameInput = document.getElementById("fname");
+const emailInput = document.getElementById("femail");
+const subjectInput = document.getElementById("fsubject");
+const messageInput = document.getElementById("fmessage");
+
+const nameError = document.getElementById("nameError");
+const emailError = document.getElementById("emailError");
+const subjectError = document.getElementById("subjectError");
+const messageError = document.getElementById("messageError");
+
+const wordCounter = document.getElementById("wordCounter");
+const submitBtn = document.getElementById("submitBtn");
+const formSuccess = document.getElementById("formSuccess");
+const formError = document.getElementById("formError");
+
+const MAX_WORDS = 500;
+
+function showError(element, message) {
+  element.textContent = message;
+  element.classList.remove("hidden");
+}
+
+function hideError(element) {
+  element.textContent = "";
+  element.classList.add("hidden");
+}
+
+function countWords(text) {
+  return text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
+}
+
+function validateName() {
+  const name = nameInput.value.trim();
+
+  if (name === "") {
+    showError(nameError, "Name is required.");
+    return false;
+  }
+
+  if (name.length < 2) {
+    showError(nameError, "Name must contain at least 2 characters.");
+    return false;
+  }
+
+  if (name.length > 50) {
+    showError(nameError, "Name cannot exceed 50 characters.");
+    return false;
+  }
+
+  if (!/^[a-zA-ZÀ-ÿ\s'-]+$/.test(name)) {
+    showError(nameError, "Please enter a valid name.");
+    return false;
+  }
+
+  hideError(nameError);
+  return true;
+}
+
+function validateEmail() {
+  const email = emailInput.value.trim();
+
+  if (email === "") {
+    showError(emailError, "Email is required.");
+    return false;
+  }
+
+  if (email.length > 100) {
+    showError(emailError, "Email cannot exceed 100 characters.");
+    return false;
+  }
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!email.includes("@")) {
+    showError(emailError, "Email must contain @.");
+    return false;
+  }
+
+  if (!emailPattern.test(email)) {
+    showError(emailError, "Please enter a valid email address.");
+    return false;
+  }
+
+  hideError(emailError);
+  return true;
+}
+
+function validateSubject() {
+  const subject = subjectInput.value.trim();
+
+  if (subject.length > 100) {
+    showError(subjectError, "Subject cannot exceed 100 characters.");
+    return false;
+  }
+
+  hideError(subjectError);
+  return true;
+}
+
+function validateMessage() {
+  const message = messageInput.value.trim();
+  const words = countWords(message);
+
+  if (message === "") {
+    showError(messageError, "Message is required.");
+    return false;
+  }
+
+  if (words > MAX_WORDS) {
+    showError(messageError, "Message cannot exceed 500 words.");
+    return false;
+  }
+
+  hideError(messageError);
+  return true;
+}
+
+function updateWordCounter() {
+  let words = countWords(messageInput.value);
+
+  if (words > MAX_WORDS) {
+    const wordArray = messageInput.value.trim().split(/\s+/);
+    messageInput.value = wordArray.slice(0, MAX_WORDS).join(" ");
+    words = MAX_WORDS;
+  }
+
+  wordCounter.textContent = `${words} / ${MAX_WORDS} words`;
+
+  if (words >= MAX_WORDS) {
+    wordCounter.classList.remove("text-zinc-500");
+    wordCounter.classList.add("text-red-400");
+  } else {
+    wordCounter.classList.remove("text-red-400");
+    wordCounter.classList.add("text-zinc-500");
+  }
+}
+
+nameInput.addEventListener("input", validateName);
+emailInput.addEventListener("input", validateEmail);
+subjectInput.addEventListener("input", validateSubject);
+
+messageInput.addEventListener("input", function() {
+  updateWordCounter();
+  validateMessage();
+});
+
+contactForm.addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  formSuccess.classList.add("hidden");
+  formError.classList.add("hidden");
+
+  const validName = validateName();
+  const validEmail = validateEmail();
+  const validSubject = validateSubject();
+  const validMessage = validateMessage();
+
+  if (!validName || !validEmail || !validSubject || !validMessage) {
+    formError.textContent = "Please correct the errors above and try again.";
+    formError.classList.remove("hidden");
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Sending...";
+
+  try {
+    const formData = new FormData(contactForm);
+
+    const response = await fetch(contactForm.action, {
+      method: "POST",
+      body: formData
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      contactForm.reset();
+      updateWordCounter();
+
+      formSuccess.textContent = "Your message has been sent successfully.";
+      formSuccess.classList.remove("hidden");
+    } else {
+      formError.textContent = "Something went wrong. Please try again.";
+      formError.classList.remove("hidden");
+    }
+
+  } catch (error) {
+    formError.textContent = "Unable to send your message. Please try again.";
+    formError.classList.remove("hidden");
+  }
+
+  submitBtn.disabled = false;
+  submitBtn.textContent = "Send message →";
+});
+</script>
         </div>
 
       </div>
