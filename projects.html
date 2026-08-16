@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Projects — Eliott</title>
+  <title>Projects — Mian G</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet"/>
@@ -28,6 +28,13 @@
     .photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
     .project-card{transition:transform .3s cubic-bezier(.4,0,.2,1),border-color .2s;}
     .project-card:hover{transform:translateY(-4px);}
+    .brand-logo{display:inline-flex;align-items:center;gap:0;transition:transform .3s ease,letter-spacing .3s ease;}
+    .brand-logo:hover{transform:translateY(-2px);letter-spacing:.01em;}
+    .brand-mian{display:inline-block;animation:brandIn .7s cubic-bezier(.2,.8,.2,1) both;}
+    .brand-sabokh{display:inline-block;animation:brandIn .7s .08s cubic-bezier(.2,.8,.2,1) both;}
+    @keyframes brandIn{from{opacity:0;transform:translateY(-8px);filter:blur(3px);}to{opacity:1;transform:translateY(0);filter:blur(0);}}
+    .reveal{will-change:opacity,transform;}
+    @media (prefers-reduced-motion:reduce){.brand-mian,.brand-sabokh{animation:none!important}.brand-logo{transition:none!important}.reveal{transition:none!important}}
   </style>
 </head>
 <body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-body antialiased">
@@ -35,9 +42,7 @@
   <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
     :class="scrolled?'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md shadow-sm shadow-black/5':'bg-transparent'">
     <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="index.html" class="font-display font-bold text-xl tracking-tight z-10">
-        <span class="text-zinc-900 dark:text-white">eli</span><span class="text-accent">ott</span>
-      </a>
+      <a href="index.html" class="brand-logo font-display font-bold text-xl tracking-tight z-10" aria-label="Mian Sabokh home"><span class="text-accent brand-mian">Mian</span><span class="text-zinc-900 dark:text-white brand-sabokh">Sabokh</span></a>
       <ul class="hidden md:flex items-center gap-8 text-sm font-medium">
         <li><a href="index.html#services" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Services</a></li>
         <li><a href="projects.html" class="nav-link text-accent font-medium">Work</a></li>
@@ -74,7 +79,11 @@
       <div class="max-w-6xl mx-auto px-6 relative z-10">
         <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">Portfolio</p>
         <h1 class="reveal font-display font-bold text-5xl md:text-6xl text-zinc-900 dark:text-white leading-tight mb-4">All Projects</h1>
-        <p class="reveal text-lg text-zinc-500 dark:text-zinc-400 max-w-xl leading-relaxed mb-8">A complete look at my work across UI/UX design, frontend development and landing pages.</p>
+        <p class="reveal text-lg text-zinc-500 dark:text-zinc-400 max-w-xl leading-relaxed mb-5">A complete look at my academic and practical work across software development, databases, web applications and management systems.</p>
+        <div class="reveal flex flex-wrap items-center gap-4 mb-8">
+          <a href="index.html" class="inline-flex items-center gap-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-accent transition-colors nav-link">&larr; Back to Home</a>
+          <a href="index.html#contact" class="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent-light transition-colors">Hire me &rarr;</a>
+        </div>
         <div class="reveal flex flex-wrap gap-2">
           <template x-for="f in filterOptions" :key="f.value">
             <button
@@ -156,7 +165,7 @@
 
   <footer class="border-t border-zinc-100 dark:border-zinc-900">
     <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p class="text-sm text-zinc-400">&copy; <span id="year"></span> Eliott. All rights reserved.</p>
+      <p class="text-sm text-zinc-400">&copy; <span id="year"></span> Mian Sabokh. All rights reserved.</p>
       <p class="text-xs text-zinc-500">Built with Tailwind CSS &amp; Alpine.js</p>
     </div>
   </footer>
@@ -170,23 +179,80 @@
         filter: 'all',
 
         filterOptions: [
-          { value: 'all',       label: 'All (9)' },
-          { value: 'saas',      label: 'SaaS' },
-          { value: 'landing',   label: 'Landing page' },
-          { value: 'agency',    label: 'Agency' },
-          { value: 'ecommerce', label: 'E-commerce' },
+          { value: 'all',       label: 'All (6)' },
+          { value: 'business',  label: 'Business Software' },
+          { value: 'database',  label: 'SQL / EER' },
+          { value: 'web',       label: 'Web Application' },
+          { value: 'cpp',       label: 'C++ / OOP' },
         ],
 
         allProjects: [
-          { id:1,  title:'Novu — SaaS Dashboard',  category:'saas',      categoryLabel:'SaaS',         tags:['SaaS','Figma','Tailwind'],           year:'2025', desc:'Complete redesign of a B2B notification platform. Reduced cognitive load by 40% and improved trial-to-paid conversion.',    img:'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=700&q=80',  url:'case-study.html' },
-          { id:2,  title:'Finlo — Fintech App',    category:'landing',   categoryLabel:'Landing page', tags:['Landing page','Fintech','Alpine.js'], year:'2024', desc:'Marketing site and onboarding flow for a personal finance app targeting young professionals.',                              img:'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&q=80', url:'case-study.html' },
-          { id:3,  title:'Orea — Creative Agency', category:'agency',    categoryLabel:'Agency',       tags:['Agency','Animation'],                year:'2024', desc:'Bold editorial site for a Paris-based branding studio. Scroll-driven animations and custom cursor.',                      img:'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=700&q=80', url:'case-study.html' },
-          { id:4,  title:'Vesta — Real Estate',    category:'landing',   categoryLabel:'Landing page', tags:['Landing page','Real Estate'],         year:'2024', desc:'Conversion-focused landing page for a proptech startup entering the French market.',                                      img:'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700&q=80',  url:'case-study.html' },
-          { id:5,  title:'Arkio — SaaS Analytics', category:'saas',      categoryLabel:'SaaS',         tags:['SaaS','Dashboard','Figma'],           year:'2024', desc:'Data visualisation dashboard for a B2B analytics platform. Designed for clarity at high data density.',                img:'https://images.unsplash.com/photo-1581472723648-909f4851d4ae?w=700&q=80', url:'case-study.html' },
-          { id:6,  title:'Bloom — E-commerce',     category:'ecommerce', categoryLabel:'E-commerce',   tags:['E-commerce','Shopify'],               year:'2023', desc:'Custom Shopify theme for a sustainable cosmetics brand. Mobile-first with high emphasis on product imagery.',           img:'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=700&q=80',  url:'case-study.html' },
-          { id:7,  title:'Mira — Health App',      category:'landing',   categoryLabel:'Landing page', tags:['Landing page','Health','Tailwind'],   year:'2023', desc:'App landing page for a mental wellness startup. Warm, accessible design with strong social proof.',                    img:'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=700&q=80', url:'case-study.html' },
-          { id:8,  title:'Noto — Agency Rebrand',  category:'agency',    categoryLabel:'Agency',       tags:['Agency','Rebrand'],                  year:'2023', desc:'Full rebrand and website for a digital communications agency in Lyon.',                                                img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&q=80', url:'case-study.html' },
-          { id:9,  title:'Kova — E-commerce',      category:'ecommerce', categoryLabel:'E-commerce',   tags:['E-commerce','Figma'],                year:'2023', desc:'Product page redesign and checkout optimisation for a DTC furniture brand. Reduced cart abandonment by 18%.',         img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=700&q=80',  url:'case-study.html' },
+          {
+            id:1,
+            title:'BizLedger — Business Management System',
+            category:'business',
+            categoryLabel:'Business Software',
+            tags:['Business Software','Management System','Dashboard'],
+            year:'2026',
+            desc:'A complete business management system for managing products, customers, sales, purchases, invoices, expenses, payments and inventory from one centralized dashboard.',
+            img:'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1000&q=85',
+            url:'bizledger.html'
+          },
+          {
+            id:2,
+            title:'Airline Management System',
+            category:'database',
+            categoryLabel:'SQL / EER',
+            tags:['SQL / EER','C++ / OOP','UML'],
+            year:'2026',
+            desc:'An airline management system developed across academic projects, covering C++ with OOP and UML followed by relational database design using SQL and EER diagrams.',
+            img:'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1000&q=85',
+            url:'airline-management.html'
+          },
+          {
+            id:3,
+            title:'ExpenseFlow — Daily Expense Tracker',
+            category:'web',
+            categoryLabel:'Web Application',
+            tags:['Web Application','Expense Tracker','Dashboard'],
+            year:'2026',
+            desc:'A web-based expense tracking application designed to record, organize and monitor daily spending through a simple and practical interface.',
+            img:'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1000&q=85',
+            url:'expenseflow.html'
+          },
+          {
+            id:4,
+            title:'Student Management System',
+            category:'cpp',
+            categoryLabel:'C++ / OOP',
+            tags:['C++','OOP','File Handling'],
+            year:'2026',
+            desc:'A student management and gradebook system built in C++ to manage student records, subjects, marks and academic information using structured programming and file handling.',
+            img:'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1000&q=85',
+            url:'student-management.html'
+          },
+          {
+            id:5,
+            title:'Transport Management System',
+            category:'cpp',
+            categoryLabel:'C++ / OOP',
+            tags:['C++','OOP','Management System'],
+            year:'2026',
+            desc:'A transport management system focused on organizing transport records and operational information through object-oriented programming concepts.',
+            img:'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1000&q=85',
+            url:'transport-management.html'
+          },
+          {
+            id:6,
+            title:'EduManage — Education Management System',
+            category:'business',
+            categoryLabel:'Management System',
+            tags:['Education','Management System','Admin Panel'],
+            year:'2026',
+            desc:'A complete education management system for managing students, teachers, fees, exams and marks, attendance, classes, timetable, notices, expenses and administration from one centralized dashboard.',
+            img:'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1000&q=85',
+            url:'education-management.html'
+          }
         ],
 
         get visibleCount() {
@@ -212,6 +278,9 @@
               });
             }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
             document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+            // Safety net: if the animation never triggers for any reason,
+            // force everything visible after 1.5s instead of staying hidden forever.
+            setTimeout(() => document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible')), 1500);
           });
         }
       }

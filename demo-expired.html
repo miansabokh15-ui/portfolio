@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" x-data="demoExpired()" x-init="init()" :class="{'dark':dark}" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Demo Session Ended — Mian Sabokh</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500&display=swap" rel="stylesheet"/>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{display:['PT Sans','sans-serif'],body:['DM Sans','sans-serif']},colors:{accent:'#FF6B2B','accent-light':'#FF8F5C'}}}}</script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;}
+    html{font-family:'DM Sans',sans-serif;}
+    h1,h2{font-family:'PT Sans',sans-serif;}
+    body{transition:background-color .3s,color .3s;}
+    .reveal{opacity:0;transform:translateY(18px);animation:in .55s cubic-bezier(.4,0,.2,1) forwards;}
+    @keyframes in{to{opacity:1;transform:none;}}
+  </style>
+</head>
+<body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-body antialiased min-h-screen flex flex-col">
+
+  <header class="border-b border-zinc-100 dark:border-zinc-900">
+    <nav class="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="font-display font-bold text-xl tracking-tight"><span class="text-accent">Mian</span> Sabokh</a>
+      <a href="projects.html" class="text-sm text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">&larr; All Projects</a>
+    </nav>
+  </header>
+
+  <main class="flex-1 flex items-center justify-center px-6 py-16">
+    <div class="reveal w-full max-w-lg text-center">
+      <p class="text-xs font-medium text-accent tracking-widest uppercase mb-3">Demo Session Ended</p>
+      <h1 class="font-display font-bold text-3xl md:text-4xl mb-3">Your demo session has ended</h1>
+      <p class="text-zinc-500 dark:text-zinc-400 mb-1">Thanks for exploring <span class="font-medium text-zinc-700 dark:text-zinc-300" x-text="projectName"></span>.</p>
+      <p class="text-zinc-500 dark:text-zinc-400 mb-8">Want full access or a customized version?</p>
+
+      <div class="flex flex-wrap justify-center gap-3 mb-10">
+        <a :href="mailtoLink" class="inline-flex items-center gap-2 bg-accent text-white font-medium px-6 py-3 rounded-full hover:bg-accent-light transition-colors">Request Full Demo</a>
+        <a :href="whatsappLink" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 border border-zinc-200 dark:border-zinc-700 font-medium px-5 py-3 rounded-full hover:border-accent hover:text-accent transition-colors">WhatsApp</a>
+        <a :href="'https://mail.google.com/mail/?view=cm&fs=1&to=' + CONTACT.email" class="inline-flex items-center gap-2 border border-zinc-200 dark:border-zinc-700 font-medium px-5 py-3 rounded-full hover:border-accent hover:text-accent transition-colors">Email</a>
+        <a :href="CONTACT.linkedin" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 border border-zinc-200 dark:border-zinc-700 font-medium px-5 py-3 rounded-full hover:border-accent hover:text-accent transition-colors">LinkedIn</a>
+      </div>
+
+      <div class="flex justify-center gap-6 text-sm">
+        <a href="index.html" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">Back to Portfolio</a>
+        <a href="projects.html" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">View Other Projects</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-zinc-100 dark:border-zinc-900">
+    <div class="max-w-3xl mx-auto px-6 py-6 text-center">
+      <p class="text-xs text-zinc-400">&copy; <span id="year"></span> Mian Sabokh. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ── Replace with your real WhatsApp number once you have one (E.164 format, no + or spaces) ──
+    const CONTACT = {
+      email: "miansabokh15@gmail.com",
+      linkedin: "https://www.linkedin.com/in/mian-sabokh-3b8a65404/",
+      whatsappNumber: "PLACEHOLDER_WHATSAPP_NUMBER", // e.g. "923001234567"
+    };
+
+    function demoExpired() {
+      return {
+        dark: false,
+        projectSlug: new URLSearchParams(location.search).get("project") || "this project",
+        projectName: "",
+        init() {
+          this.dark = localStorage.getItem('theme') === 'dark'
+            || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.getElementById('year').textContent = new Date().getFullYear();
+          this.projectName = this.projectSlug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        },
+        get mailtoLink() {
+          const body = encodeURIComponent(`I'd like to request a full demo of ${this.projectName}.`);
+          return `mailto:${CONTACT.email}?subject=Full Demo Request&body=${body}`;
+        },
+        get whatsappLink() {
+          const text = encodeURIComponent(`I'd like to request a full demo of ${this.projectName}.`);
+          return `https://wa.me/${CONTACT.whatsappNumber}?text=${text}`;
+        },
+      };
+    }
+  </script>
+</body>
+</html>

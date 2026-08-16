@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" x-data="projectDetail()" :class="{'dark':dark}" x-init="init()" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EduManage — Education Management System — Mian G</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500&display=swap" rel="stylesheet"/>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{display:['PT Sans','sans-serif'],body:['DM Sans','sans-serif']},colors:{accent:'#FF6B2B','accent-light':'#FF8F5C'}}}}</script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;}
+    html{font-family:'DM Sans',sans-serif;}
+    h1,h2,h3,h4,h5,h6{font-family:'PT Sans',sans-serif;}
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1);}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+    .nav-link{position:relative;}
+    .nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:currentColor;transition:width .25s cubic-bezier(.4,0,.2,1);}
+    .nav-link:hover::after{width:100%;}
+    ::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:#FF6B2B;border-radius:99px;}
+    body{transition:background-color .3s,color .3s;}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4;}
+    .photo-frame{position:relative;overflow:hidden;background:#e4e4e7;}
+    .photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
+    .brand-logo{display:inline-flex;align-items:center;gap:0;transition:transform .3s ease,letter-spacing .3s ease;}
+    .brand-logo:hover{transform:translateY(-2px);letter-spacing:.01em;}
+    .brand-mian{display:inline-block;animation:brandIn .7s cubic-bezier(.2,.8,.2,1) both;}
+    .brand-sabokh{display:inline-block;animation:brandIn .7s .08s cubic-bezier(.2,.8,.2,1) both;}
+    @keyframes brandIn{from{opacity:0;transform:translateY(-8px);filter:blur(3px);}to{opacity:1;transform:translateY(0);filter:blur(0);}}
+    .reveal{will-change:opacity,transform;}
+    @media (prefers-reduced-motion:reduce){.brand-mian,.brand-sabokh{animation:none!important}.brand-logo{transition:none!important}.reveal{transition:none!important}}
+  </style>
+</head>
+<body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-body antialiased">
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" :class="scrolled?'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md shadow-sm shadow-black/5':'bg-transparent'">
+    <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="brand-logo font-display font-bold text-xl tracking-tight z-10" aria-label="Mian Sabokh home"><span class="text-accent brand-mian">Mian</span><span class="text-zinc-900 dark:text-white brand-sabokh">Sabokh</span></a>
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <li><a href="index.html#services" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Services</a></li>
+        <li><a href="projects.html" class="nav-link text-accent font-medium">Work</a></li>
+        <li><a href="index.html#about" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">About</a></li>
+        <li><a href="blog.html" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Blog</a></li>
+        <li><a href="index.html#contact" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Contact</a></li>
+      </ul>
+      <div class="flex items-center gap-3">
+        <button @click="dark=!dark;localStorage.setItem('theme',dark?'dark':'light')" class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" :aria-label="dark?'Light mode':'Dark mode'">
+          <svg x-show="!dark" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          <svg x-show="dark" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path x-show="dark" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+        </button>
+        <a href="index.html#contact" class="hidden md:inline-flex items-center gap-2 bg-accent text-white text-sm font-medium px-5 py-2 rounded-full hover:bg-accent-light transition-colors">Hire me &rarr;</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="pt-32 pb-12 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-80 h-80 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="max-w-6xl mx-auto px-6 relative z-10">
+        <div class="reveal flex flex-wrap items-center gap-4 mb-8">
+          <a href="index.html" class="inline-flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">&larr; Back to Home</a>
+          <a href="projects.html" class="inline-flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">View All Projects &rarr;</a>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">Management System</p>
+            <h1 class="reveal font-display font-bold text-5xl md:text-6xl text-zinc-900 dark:text-white leading-tight mb-5">EduManage — Education Management System</h1>
+            <div class="reveal flex flex-wrap gap-2 mb-6"><span class="text-xs px-3 py-1.5 rounded-full bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700">Education</span><span class="text-xs px-3 py-1.5 rounded-full bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700">Management System</span><span class="text-xs px-3 py-1.5 rounded-full bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700">Admin Panel</span></div>
+            <p class="reveal text-lg text-zinc-500 dark:text-zinc-400 leading-relaxed">A complete education management system designed to bring student, teacher, fee, exam, attendance, class, timetable, notice, expense and administrative operations into one centralized platform.</p>
+            <div class="reveal flex items-center gap-4 mt-7">
+              <a href="demo-access.html?project=education-management" class="inline-flex items-center gap-2 bg-accent text-white font-medium px-6 py-3 rounded-full hover:bg-accent-light transition-colors">Try Live Demo &rarr;</a>
+              <span class="text-sm text-zinc-400">2026</span>
+            </div>
+          </div>
+          <div class="reveal photo-frame rounded-2xl h-72 md:h-96 border border-zinc-100 dark:border-zinc-800">
+            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1000&amp;q=85" alt="EduManage — Education Management System" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-24">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="space-y-10">
+          <section class="border-t border-zinc-100 dark:border-zinc-800 pt-8">
+            <h2 class="font-display font-bold text-2xl text-zinc-900 dark:text-white mb-3">Overview</h2>
+            <p class="text-zinc-500 dark:text-zinc-400 leading-relaxed">EduManage is an education management platform built to organize the daily academic and administrative workflow of an educational institution in one place. The system provides dedicated areas for students, teachers, fees, examinations, attendance, classes and administration.</p>
+          </section>
+          <section class="border-t border-zinc-100 dark:border-zinc-800 pt-8">
+            <h2 class="font-display font-bold text-2xl text-zinc-900 dark:text-white mb-3">Core functionality</h2>
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div class="rounded-xl border border-zinc-100 dark:border-zinc-800 p-4"><strong>Dashboard</strong><p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Central overview of academic and administrative activity.</p></div>
+              <div class="rounded-xl border border-zinc-100 dark:border-zinc-800 p-4"><strong>Students</strong><p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Manage student records and academic information.</p></div>
+              <div class="rounded-xl border border-zinc-100 dark:border-zinc-800 p-4"><strong>Teachers</strong><p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Organize teacher records and responsibilities.</p></div>
+              <div class="rounded-xl border border-zinc-100 dark:border-zinc-800 p-4"><strong>Fees</strong><p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Track fee records and payment information.</p></div>
+              <div class="rounded-xl border border-zinc-100 dark:border-zinc-800 p-4"><strong>Exams &amp; Marks</strong><p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Manage examinations, marks and academic results.</p></div>
+              <div class="rounded-xl border border-zinc-100 dark:border-zinc-800 p-4"><strong>Attendance</strong><p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Record and monitor attendance information.</p></div>
+              <div class="rounded-xl border border-zinc-100 dark:border-zinc-800 p-4"><strong>Classes</strong><p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Organize classes and academic groups.</p></div>
+              <div class="rounded-xl border border-zinc-100 dark:border-zinc-800 p-4"><strong>Timetable</strong><p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Manage schedules and class timings.</p></div>
+              <div class="rounded-xl border border-zinc-100 dark:border-zinc-800 p-4"><strong>Notices</strong><p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Publish and organize important announcements.</p></div>
+              <div class="rounded-xl border border-zinc-100 dark:border-zinc-800 p-4"><strong>Expenses</strong><p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Keep track of institutional expenses.</p></div>
+              <div class="rounded-xl border border-zinc-100 dark:border-zinc-800 p-4"><strong>Settings</strong><p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Configure system preferences and controls.</p></div>
+              <div class="rounded-xl border border-zinc-100 dark:border-zinc-800 p-4"><strong>Admin Panel</strong><p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Central administration and system management.</p></div>
+            </div>
+          </section>
+          <section class="border-t border-zinc-100 dark:border-zinc-800 pt-8">
+            <h2 class="font-display font-bold text-2xl text-zinc-900 dark:text-white mb-3">Project highlights</h2>
+            <ul class="space-y-3 text-zinc-500 dark:text-zinc-400 leading-relaxed">
+              <li>• Centralized academic and administrative management.</li>
+              <li>• Separate modules for students, teachers and examinations.</li>
+              <li>• Fee, attendance, timetable, notice and expense tracking.</li>
+              <li>• Admin-focused controls for managing the overall platform.</li>
+            </ul>
+          </section>
+          <section class="border-t border-zinc-100 dark:border-zinc-800 pt-8">
+            <h2 class="font-display font-bold text-2xl text-zinc-900 dark:text-white mb-3">Technologies &amp; concepts</h2>
+            <div class="flex flex-wrap gap-2"><span class="text-sm px-3 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">HTML</span><span class="text-sm px-3 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">CSS</span><span class="text-sm px-3 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">JavaScript</span><span class="text-sm px-3 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">Dashboard</span><span class="text-sm px-3 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">Education Management</span><span class="text-sm px-3 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">Admin Panel</span></div>
+          </section>
+          <section class="border-t border-zinc-100 dark:border-zinc-800 pt-8 flex flex-wrap gap-4">
+            <a href="index.html" class="inline-flex items-center gap-2 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white font-medium px-6 py-3 rounded-full hover:border-accent hover:text-accent transition-colors">&larr; Back to Home</a>
+            <a href="projects.html" class="inline-flex items-center gap-2 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white font-medium px-6 py-3 rounded-full hover:border-accent hover:text-accent transition-colors">&larr; All Projects</a>
+            <a href="demo-access.html?project=education-management" class="inline-flex items-center gap-2 bg-accent text-white font-medium px-6 py-3 rounded-full hover:bg-accent-light transition-colors">Try Live Demo &rarr;</a>
+          </section>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-zinc-100 dark:border-zinc-900">
+    <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-zinc-400">&copy; <span id="year"></span> Mian Sabokh. All rights reserved.</p>
+      <p class="text-xs text-zinc-500">Built with Tailwind CSS &amp; Alpine.js</p>
+    </div>
+  </footer>
+
+  <script>
+    function projectDetail() {
+      return {
+        dark:false,
+        scrolled:false,
+        init() {
+          this.dark = localStorage.getItem('theme') === 'dark'
+            || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          window.addEventListener('scroll', () => { this.scrolled = window.scrollY > 20; }, { passive:true });
+          this.$nextTick(() => {
+            const obs = new IntersectionObserver(entries => {
+              entries.forEach(e => {
+                if (e.isIntersecting) {
+                  e.target.classList.add('visible');
+                  obs.unobserve(e.target);
+                }
+              });
+            }, { threshold:.08, rootMargin:'0px 0px -30px 0px' });
+            document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+          });
+        }
+      }
+    }
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
